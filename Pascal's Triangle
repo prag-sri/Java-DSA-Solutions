@@ -1,1 +1,39 @@
+//Pascal's Triangle
+//Leetcode Link:- https://leetcode.com/problems/pascals-triangle/
 
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        //STEPS FOR SOLUTION:-
+        //1)If numRows==1 then return [1]
+        //2)If numRows==2 then return [1,1]
+        //3)Run a for loop where i=3 till i<=numRows
+        //4)First element will be 1 then for next element have two pointers j(j=0) and k (k=j+1)- run the loop till k<size of previous arraylist- add the jth and kth element and add the sum into the list- Last element will be 1
+        
+        List<List<Integer>> ans= new ArrayList<>();
+        if(numRows>=1)
+        {
+            List<Integer> curr= new ArrayList<>();
+            curr.add(1);
+            ans.add(curr);
+        }
+        if(numRows==1)
+            return ans;
+        
+        for(int i=1; i<numRows; i++)
+        {
+            List<Integer> curr= new ArrayList<>();
+            curr.add(1);        //first element
+            int j=0, k=j+1;
+            while(k<ans.get(i-1).size())
+            {
+                curr.add(ans.get(i-1).get(j)+ans.get(i-1).get(k));
+                j++;
+                k++;
+            }
+            curr.add(1);        //last element
+            ans.add(curr);
+        }
+        
+        return ans;
+    }
+}
