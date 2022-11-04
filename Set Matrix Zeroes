@@ -1,0 +1,46 @@
+//Set Matrix Zeroes
+//Leetcode Link:- https://leetcode.com/problems/set-matrix-zeroes/
+
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        //STEPS FOR SOLUTION:-
+        //1)Create an arrayList of arrayList namely 'zeroes'- this 'zeroes' will store the value of i and j such that matrix[i][j]==0
+        //2)After finding out i,j where matrix[i][j]=0- run a for loop and turn all matrix[i][j]=0
+        
+        int row= matrix.length;
+        int col= matrix[0].length;
+        
+        List<List<Integer>> zeroes= new ArrayList<>();
+        for(int i=0; i<row; i++)
+        {
+            for(int j=0; j<col; j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    List<Integer> curr= new ArrayList<>();
+                    curr.add(i);
+                    curr.add(j);
+                    zeroes.add(curr);
+                }
+            }
+        }
+        
+        for(int k=0; k<zeroes.size(); k++)
+        {
+            int i=zeroes.get(k).get(0);
+            int j=0;
+            while(j<col)
+            {
+                matrix[i][j]=0;
+                j++;
+            }
+            i=0;
+            j=zeroes.get(k).get(1);
+            while(i<row)
+            {
+                matrix[i][j]=0;
+                i++;
+            }
+        }
+    }
+}
