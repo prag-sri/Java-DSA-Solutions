@@ -1,0 +1,22 @@
+//Best Time to Buy and Sell Stock
+//LeetCode Link:- https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        //STEPS FOR SOLUTION:-
+        //1)Traverse into the prices array and find the min element as that will be the day to buy
+        //2)Keep on finding current profit as you traverse into the prices array i.e. prices[i]-minElement
+        //3)Have a varaiable maxProfit which will be storing the maxProfit gained till now- return this maxProfit at the end of for loop
+        
+        int n= prices.length;
+        int minElement= prices[0];
+        int maxProfit= Integer.MIN_VALUE;
+        for(int i=0; i<n; i++)
+        {
+            minElement= Math.min(minElement,prices[i]);
+            int currentProfit= prices[i]-minElement;
+            maxProfit= Math.max(maxProfit,currentProfit);
+        }
+        return maxProfit;
+    }
+}
