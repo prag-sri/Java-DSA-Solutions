@@ -1,0 +1,63 @@
+//Count Inversions
+//Coding Ninjas Link:- https://www.codingninjas.com/codestudio/problems/count-inversions_615?leftPanelTab=0
+
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static long getInversions(long arr[], int n) {
+        long ans= divide(0,n-1,arr);
+        return ans;
+    }
+    public static long divide(int start, int end, long[] arr)
+    {
+        if(start==end)
+            return 0;
+        int mid= (start+end)/2;
+        long ans=0l;
+        ans= ans+divide(start,mid,arr);
+        ans= ans+divide(mid+1,end,arr);
+        ans=ans+conquer(start,mid,end,arr);
+        return ans;
+    }
+    public static long conquer(int start, int mid, int end, long[] arr)
+    {
+        long ans=0l;
+        ArrayList<Long> A= new ArrayList<>();
+        for(int i=start; i<=mid; i++)
+            A.add(arr[i]);
+        ArrayList<Long> B= new ArrayList<>();
+        for(int i=mid+1; i<=end; i++)
+            B.add(arr[i]);
+        ArrayList<Long> C= new ArrayList<>();
+        int i=0, j=0;
+        while(i<A.size() && j<B.size())
+        {
+            if(A.get(i)<=B.get(j))
+            {
+                C.add(A.get(i));
+                i++;
+            }
+            else
+            {
+                C.add(B.get(j));
+                j++;
+                ans=ans+(A.size()-i);
+            }
+        }
+        while(i<A.size())
+        {
+            C.add(A.get(i));
+            i++;
+        }
+        while(j<B.size())
+        {
+            C.add(B.get(j));
+            j++;
+        }
+        for(int k=0; k<C.size(); k++)
+        {
+            arr[k+start]=C.get(k);
+        }
+        return ans;
+    }
+}
