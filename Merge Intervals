@@ -1,0 +1,59 @@
+//Merge Intervals
+//LeetCode Link:- https://leetcode.com/problems/merge-intervals/
+
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        //STEPS FOR SOLUTION:-
+        //1)Create an arrayList of arraylist and store intervals[i][j]
+        //2)Sort the ArrayList based on start and if starts are equal then sort on basis of end
+        //3)Create another arraylist of arraylist in which we store the merged intervals
+        //4)For merging intervals- traverse into the previously created arraylist of arraylist- compare end[i] and start[i+1] of first two lists:
+        //5)If end[i]<start[i+1] then add ith list into the ans arraylist
+        //6)If end[i]>start[i+1] then merge ith and (i+1)th list i.e. add start[i] and end[i+1] in ans arraylist
+        //7)Use a while loop that keep on traversing into arraylist until we get either to the end of arraylist or end[i]<start[i+1] then only add start and end of arraylist
+        
+        List<List<Integer>> interval= new ArrayList<>();
+        int row= intervals.length;
+        int col= intervals[0].length;
+        for(int i=0; i<row; i++)
+        {
+            List<Integer> curr= new ArrayList<>();
+            curr.add(intervals[i][0]);
+            curr.add(intervals[i][1]);
+            interval.add(curr);
+        }
+        
+        Collections.sort(interval,(x,y) -> Integer.compare(x.get(0),y.get(0))==0?Integer.compare(x.get(1),y.get(1)):Integer.compare(x.get(0),y.get(0)));
+              
+        List<List<Integer>> ans= new ArrayList<>();
+        
+        int i=0;
+        while(i<row)
+        {
+            int start= interval.get(i).get(0);
+            int end= interval.get(i).get(1);
+            int k=i+1;
+            while(k<row && end>=interval.get(k).get(0)) 
+            {
+                end= Math.max(end,interval.get(k).get(1));
+                k++;
+            }
+                
+            List<Integer> curr= new ArrayList<>();
+            curr.add(start);
+            curr.add(Math.max(end,interval.get(k-1).get(1)));
+            ans.add(curr);
+            i=k;
+        }
+               
+        int ansList[][]= new int[ans.size()][2];
+        for(i=0; i<ans.size(); i++)
+        {
+            //System.out.println(ans.get(i).get(0)+" "+ans.get(i).get(1));
+            ansList[i][0]= ans.get(i).get(0);
+            ansList[i][1]= ans.get(i).get(1);
+        }
+        
+        return ansList;
+    }
+}
