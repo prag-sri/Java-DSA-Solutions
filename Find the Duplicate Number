@@ -1,0 +1,24 @@
+//Find the Duplicate Number
+//LeetCode Link:- https://leetcode.com/problems/find-the-duplicate-number/
+
+class Solution {
+    public int findDuplicate(int[] nums) {
+        //STEPS FOR SOLUTION:-
+        //1)Traverse into the array and mark all nums[i]-1 indexes elements negative
+        //2)Do make nums[i] positive if it is already negative then make (nums[i]-1)th element as negative
+        //3)Now if (nums[i]-1)th element is laready negative then nums[i] is the repeating number
+        
+        int n= nums.length;
+        for(int i=0; i<n; i++)
+        {
+            int val= nums[i];
+            if(val<0)
+                val=val*(-1);
+            int index= val-1;
+            if(nums[index]<0)
+                return nums[i]<0?-nums[i]:nums[i];
+            nums[index]= (-1)*nums[index];
+        }
+        return -1;
+    }
+}
