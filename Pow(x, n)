@@ -1,0 +1,30 @@
+//Pow(x, n)
+//LeetCode Link:- https://leetcode.com/problems/powx-n/
+
+class Solution {
+    public double myPow(double x, int n) {
+        //STEPS FOR SOLUTION:-
+        //1)Edge case:- If power is 0 then return ans as 1
+        //2)Using recursion- divide power by 2 and at the end power becomes 0, 1 is returned
+        //3)If power is divisible by 2 then return num returned by recursion to itself
+        //4)If power is not divisible by 2 and positive then return x*(temp*temp)
+        //5)If power is not divisible by 2 and negative then return (temp*temp)/x (eg: 2^-1= 1/2)
+        
+
+        if(n==0)
+            return 1;
+        double temp=x;
+        temp= myPow(x,n/2);
+        
+        if(n%2==0)
+            return temp*temp;
+        else 
+        {
+            if(n>0)
+                return x*temp*temp;
+            else if(n<0)
+                return (temp*temp)/x;
+        }
+        return 0;
+    }
+}
