@@ -1,0 +1,30 @@
+//Majority Element
+//LeetCode Link:- https://leetcode.com/problems/majority-element/
+
+class Solution {
+    public int majorityElement(int[] nums) {
+        //STEPS FOR SOLUTION:-
+        //1)Take two variables count and num where count will store the frequency of the majority element and num will store the majority element
+        //2)Initialize num as nums[0] and count as 1 then traverse into the array
+        //3)If nums[i]!=num -> decrement count and if count becomes 0 then make num=nums[i] and count as 1
+        //4)If nums[i]==num -> increment count and move on in the array
+        
+        int n= nums.length;
+        int count=1, num= nums[0];
+        for(int i=1; i<n; i++)
+        {
+            if(num!=nums[i])
+            {
+                count--;
+                if(count==0)
+                {
+                    num= nums[i];
+                    count=1;
+                }
+            }
+            else
+                count++;
+        }
+        return num;
+    }
+}
