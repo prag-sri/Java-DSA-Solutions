@@ -1,0 +1,58 @@
+                                         ********************** Rectangle Area *********************
+
+LeetCode Link:- https://leetcode.com/problems/rectangle-area/
+                               
+Given the coordinates of two rectilinear rectangles in a 2D plane, return the total area covered by the two rectangles.
+
+The first rectangle is defined by its bottom-left corner (ax1, ay1) and its top-right corner (ax2, ay2).
+
+The second rectangle is defined by its bottom-left corner (bx1, by1) and its top-right corner (bx2, by2).
+
+ 
+
+Example 1:
+
+Rectangle Area
+Input: ax1 = -3, ay1 = 0, ax2 = 3, ay2 = 4, bx1 = 0, by1 = -1, bx2 = 9, by2 = 2
+Output: 45
+Example 2:
+
+Input: ax1 = -2, ay1 = -2, ax2 = 2, ay2 = 2, bx1 = -2, by1 = -2, bx2 = 2, by2 = 2
+Output: 16
+ 
+
+Constraints:
+
+-104 <= ax1 <= ax2 <= 104
+-104 <= ay1 <= ay2 <= 104
+-104 <= bx1 <= bx2 <= 104
+-104 <= by1 <= by2 <= 104
+             
+                                         ********************** Code *********************
+class Solution {
+    public int computeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2) {    
+        //STEPS FOR SOLUTION:-
+        //1)The total area covered by the two rectangles has to be found i.e. Area of Rectangle1+ Area of Rectangle2- Area of Intersecting Rectangles (if area of intersecting rectangles is not subtracted then it will be added twice)
+        //2)Calculating Area of Rectangle1= Add x1 and x2 coordinates and y1 and y2 coordinates then multiply x and y to get the area
+        //3)Calculating Area of Rectangle2= Add x1 and x2 coordinates and y1 and y2 coordinates then multiply x and y to get the area
+        //4)Calculating Area of Intersecting Rectangles= Calculate min of coordinates of 2nd and 4th quadrants(negative coordinates) - Calculate max of coordinates of 1st and 3rd quadrants(positive coordinates)- adding all x axis coordinates and y axis coordinates- then multiply x and y to get the area
+        //5)If either of x or y axis is negative then that means the rectangle will never intersect then take the area of intersecting rectangle as 0
+        //5)Return the value= Area of Rectangle1+ Area of Rectangle2- Area of Intersecting Rectangles
+        
+        int a1= (ax2-ax1)*(ay2-ay1);
+        int a2= (bx2-bx1)*(by2-by1);
+        
+        int cx1= Math.max(ax1,bx1);
+        int cy1= Math.max(ay1,by1);
+        int cx2= Math.min(ax2,bx2);
+        int cy2= Math.min(ay2,by2);
+        
+        int x= (cx2-cx1);
+        int y= (cy2-cy1);
+        int a3= x*y;
+        if(x<0 || y<0)
+            a3=0;
+        
+        return a1+a2-a3;
+    }
+}
