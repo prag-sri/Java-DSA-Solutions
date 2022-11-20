@@ -134,3 +134,111 @@ class Solution {
             smallest(root.left,q);
     }
 }
+
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+//NOTE:- Below code has passed all test cases
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    List<Integer> inorder;
+    HashMap<Integer,Integer> map;
+    public List<List<Integer>> closestNodes(TreeNode root, List<Integer> queries) {
+        //STEPS FOR SOLUTION:-
+        //1)Find inorder traversal of the binary tree and store it in an arraylist
+        //2)Create a HashMap and store root.val as key and its index in arraylist as the value
+        //3)Then for each query find if queries.get(i) is present in HashMap or not if it is present then simply return min and max as the queries.get(i) itself
+        //4)Using Binary search find min and max of every other query if it is not present in hashmap
+        
+        inorder= new ArrayList<>();
+        map= new HashMap<>();
+        
+        inorderTraversal(root);
+         
+        int n= queries.size();
+        
+        List<List<Integer>> ans= new ArrayList<>();
+        
+        for(int i=0; i<n; i++)
+        {
+            int q= queries.get(i);
+            List<Integer> curr= new ArrayList<>();
+            if(map.containsKey(q))
+            {
+                curr.add(q);
+                curr.add(q);
+            }
+            else
+            {
+                int min= small(inorder,inorder.size(),q);
+                int max= large(inorder,inorder.size(),q);
+                curr.add(min);
+                curr.add(max);
+            }
+            ans.add(curr);
+        }
+        
+        return ans;
+    }
+    public int small(List<Integer> inorder, int n, int q){
+        int start=0, end=n-1;
+        int min=-1;
+        while(start<=end)
+        {
+            int mid=(start+end)/2;
+            if(inorder.get(mid)<q)
+            {
+              min= Math.max(min,inorder.get(mid));
+              start=mid+1;
+            }
+            else
+                end=mid-1;
+        }
+        return min;
+    }
+    public int large(List<Integer> inorder, int n, int q){
+        int start=0, end=n-1;
+        int max=Integer.MAX_VALUE;
+        while(start<=end)
+        {
+            int mid=(start+end)/2;
+            if(inorder.get(mid)>q)
+            {
+              max= Math.min(max,inorder.get(mid));
+              end=mid-1;
+            }
+            else
+                start=mid+1;
+        }
+        if(max==Integer.MAX_VALUE)
+            max=-1;
+        return max;
+    }
+    public void inorderTraversal(TreeNode root){
+        if(root==null)
+            return;
+        inorderTraversal(root.left);
+        inorder.add(root.val);
+        map.put(root.val,map.size());
+        inorderTraversal(root.right);
+    }
+}
