@@ -57,3 +57,46 @@ class Solution
         return a.equals(b);
     }
 }
+
+
+
+
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE- APPROACH 2
+********************************************************************************************************************************************************************
+
+class Solution
+{    
+    //Function is to check whether two strings are anagram of each other or not.
+    public static boolean isAnagram(String a,String b)
+    {
+        int sizea= a.length();
+        int sizeb= b.length();
+        if(sizea!=sizeb)
+            return false;
+            
+        int arr[]= new int[26];
+        
+        for(int i=0; i<sizea; i++)
+        {
+            int num= (int)a.charAt(i)-97;
+            arr[num]++;
+        }
+        for(int i=0; i<sizeb; i++)
+        {
+            int num= (int)b.charAt(i)-97;
+            arr[num]--;
+        }
+        
+        for(int i=0; i<26; i++)
+        {
+            if(arr[i]!=0)
+                return false;
+        }
+        return true;
+        
+    }
+}
