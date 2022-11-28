@@ -1,1 +1,58 @@
+********************************************************************************************************************************************************************
+                                                               Delete Middle of Linked List
+********************************************************************************************************************************************************************
 
+
+GFG Link:- https://practice.geeksforgeeks.org/problems/delete-middle-of-linked-list/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+Given a linked list of size N and a key. The task is to insert the key in the middle of the linked list.
+
+Given a singly linked list, delete middle of the linked list. For example, if given linked list is 1->2->3->4->5 then linked list should be modified to 1->2->4->5.
+If there are even nodes, then there would be two middle nodes, we need to delete the second middle element. For example, if given linked list is 1->2->3->4->5->6 then it should be modified to 1->2->3->5->6.
+If the input linked list is NULL or has 1 node, then it should return NULL
+
+Example 1:
+
+Input:
+LinkedList: 1->2->3->4->5
+Output: 1 2 4 5
+Example 2:
+
+Input:
+LinkedList: 2->4->6->7->5->1
+Output: 2 4 6 5 1
+Your Task:
+The task is to complete the function deleteMid() which should delete the middle element from the linked list and return the head of the modified linked list. If the linked list is empty then it should return NULL.
+
+Expected Time Complexity: O(N).
+Expected Auxiliary Space: O(1).
+
+Constraints:
+1 <= N <= 1000
+1 <= value <= 1000
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+class Solution {
+    Node deleteMid(Node head) {
+        //STEPS FOR SOLUTION:-
+        //1)Using slow and fast pointer, find the middle node of the linked list
+        //2)Take a prev Node which would be pointing to the previous of slow
+        //3)Remove the slow node and link previous and slow.next together
+        
+        Node slow= head;
+        Node fast= head;
+        Node prev=null;
+        while(fast!=null && fast.next!=null)
+        {
+            prev=slow;
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        prev.next=slow.next;
+        return head;
+    }
+}
