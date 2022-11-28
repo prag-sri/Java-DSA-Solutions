@@ -1,0 +1,77 @@
+********************************************************************************************************************************************************************
+                                                                      Program for Hexadecimal to Decimal
+********************************************************************************************************************************************************************
+
+
+GFG Link:- https://www.geeksforgeeks.org/program-for-hexadecimal-to-decimal/
+
+Given a hexadecimal number as input, we need to write a program to convert the given hexadecimal number into an equivalent decimal number.
+
+Examples:  
+
+Input : 67
+Output: 103
+
+Input : 512
+Output: 1298
+
+Input : 123
+Output: 291
+We know that hexadecimal number uses 16 symbols {0, 1, 2, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F} to represent all numbers. Here, (A, B, C, D, E, F) represents (10, 11, 12, 13, 14, 15). 
+
+The idea is to extract the digits of a given hexadecimal number starting from the rightmost digit and keep a variable dec_value. At the time of extracting digits from the hexadecimal number, multiply the digit with the proper base (Power of 16) and add it to the variable dec_value. In the end, the variable dec_value will store the required decimal number.
+
+For Example: If the hexadecimal number is 1A. 
+dec_value = 1*(16^1) + 10*(16^0) = 26
+
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+//Program for Hexadecimal to Decimal
+import java.util.Scanner;
+public class Main
+{
+	public static void main(String[] args) {
+		//STEPS FOR SOLUTION:-
+		//1)Using a while loop till n doesn't become 0- find n%10 then multiply it with Math.pow(16,i)- i is incrememting 
+		//with each loop
+		//2)Also have a variable where the decimal value will be getting stored
+		//3)Hexadecimals are- {0, 1, 2, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F}
+		//4)So take String as input and not int- if s.charAt(i)=='A' then num=10 and so on...
+		
+		Scanner sc= new Scanner(System.in);
+		String str= sc.next();
+		int n= str.length();
+		int i=n-1;
+		int ans=0;
+		for(int j=0; j<n; j++)
+		{
+		    char ch= str.charAt(j);
+		    int num=0;
+		    if(ch=='A')
+		        num=10;
+		    else if(ch=='B')
+		        num=11;
+		    else if(ch=='C')
+		        num=12;
+		    else if(ch=='D')
+		        num=13;
+		    else if(ch=='E')
+		        num=14;
+		    else if(ch=='F')
+		        num=15;
+		    else
+		        num= Character.getNumericValue(ch);
+		    
+		    int value= num* (int)(Math.pow(16,i));
+		    ans=ans+value;
+		    i--;
+		}
+		
+		System.out.println(ans);
+	}
+}
