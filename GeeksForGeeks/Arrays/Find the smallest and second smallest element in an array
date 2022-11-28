@@ -84,3 +84,39 @@ class Compute
                                                                                CODE- APPROACH 2
 ********************************************************************************************************************************************************************
 
+class Compute 
+{
+    public long[] minAnd2ndMin(long a[], long n)  
+    {
+        //STEPS FOR SOLUTION:-
+        //1)Without using any extra space, create two variables 'first' and last
+        //2)First will store the first minimum element while last will store second minimum element
+        //3)Now traverse into the array and check if current element is smaller than first or not- if smaller then put a[i]= first and value of first will be stored into sec
+        //4)Also keep a check if the current element is smaller than last- if it is update last
+        //5)If last is not set then simply return -1
+        
+        long first=Integer.MAX_VALUE, last= Integer.MAX_VALUE;
+        
+        for(int i=0; i<n; i++)
+        {
+            if(first>a[i])
+            {
+                last=first;
+                first=a[i];
+            }
+            else if(last>a[i] && first!=a[i])
+                last=a[i];
+        }
+        
+        if(last==Integer.MAX_VALUE)
+        {
+            long ans[]={-1};
+            return ans;
+        }
+        long ans[]= new long[2];
+        ans[0]=first;
+        ans[1]=last;
+        return ans;
+    }
+}
+
