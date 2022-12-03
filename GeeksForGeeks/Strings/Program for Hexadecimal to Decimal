@@ -37,22 +37,26 @@ public class Main
 {
 	public static void main(String[] args) {
 		//STEPS FOR SOLUTION:-
-		//1)Using a while loop till n doesn't become 0- find n%10 then multiply it with Math.pow(16,i)- i is incrememting 
-		//with each loop
-		//2)Also have a variable where the decimal value will be getting stored
-		//3)Hexadecimals are- {0, 1, 2, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F}
-		//4)So take String as input and not int- if s.charAt(i)=='A' then num=10 and so on...
+		//1)Take a string as input as there can be chars like A,B,C,D,E,F 
+		//2)Take a count variable which will be initialized as n-1 (n being the length of the string)
+		//3)Also take a variable res which will be storing the sum of value calculated at every index- 
+		//also value= num(char at index i)+Math.pow(16,count)
+		//4)If the num is to be greater than 9 then it will be A,B,C,D format when 10=A, 11=B and so on...
 		
 		Scanner sc= new Scanner(System.in);
 		String str= sc.next();
 		int n= str.length();
-		int i=n-1;
+		
+		int count=n-1;
 		int ans=0;
-		for(int j=0; j<n; j++)
+		
+		for(int i=0; i<n; i++)
 		{
-		    char ch= str.charAt(j);
+		    char ch= str.charAt(i);
 		    int num=0;
-		    if(ch=='A')
+		    if(ch>='0' && ch<='9')
+		        num= Character.getNumericValue(ch);
+		    else if(ch=='A')
 		        num=10;
 		    else if(ch=='B')
 		        num=11;
@@ -64,14 +68,12 @@ public class Main
 		        num=14;
 		    else if(ch=='F')
 		        num=15;
-		    else
-		        num= Character.getNumericValue(ch);
-		    
-		    int value= num* (int)(Math.pow(16,i));
-		    ans=ans+value;
-		    i--;
+		        
+		    ans= ans+(num*(int)(Math.pow(16,count)));
+		    count--;
 		}
 		
 		System.out.println(ans);
+		
 	}
 }
