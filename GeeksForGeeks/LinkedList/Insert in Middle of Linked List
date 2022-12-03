@@ -47,22 +47,23 @@ class Solution {
     
     public Node insertInMid(Node head, int data){
         //STEPS FOR SOLUTION:-
-        //1)Using slow and fast algorithm find the mid of the linked list
-        //2)Create a new node and add in the middle of the linked list
+        //1)Find the mid of the linked list using slow and fast pointers
+        //2)Create the new node using data provided
+        //3)Link it to the next of slow and new node's next will become slow.next- and return head
+        //Time Complexity:- O(N/2) -> O(N)
+        //Space Complexity:- O(1)
         
         Node slow= head;
         Node fast= head;
         while(fast.next!=null && fast.next.next!=null)
         {
-            slow=slow.next;
-            fast=fast.next.next;
+            slow= slow.next;
+            fast= fast.next.next;
         }
         Node nxt= slow.next;
-        
         Node newNode= new Node(data);
-        slow.next=newNode;
-        newNode.next=nxt;
-        
+        slow.next= newNode;
+        newNode.next= nxt;
         return head;
     }
 }
