@@ -81,3 +81,41 @@ class Solution {
        
     }
 }
+
+
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE- APPROACH 3
+********************************************************************************************************************************************************************
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        //STEPS FOR SOLUTION:-
+        //1)Create an array of size 26 where each char's frequency would be stored
+        //2)For string s increment the frequency of each char at ith index
+        //3)For string t decrement the frequency of each char at ith index
+        //4)At the end check if any of the elements of frequency array is not 0- if 0 then equal otherwise not equal
+        //Time Complexity:- O(N)- bcoz traversing into s and t string to set freq
+        //Space Complexity:- O(26)- bcoz creating an array of size 26= Overall SC: O(1)
+        
+        int arr[]= new int[26];
+        for(int i=0; i<s.length(); i++)
+        {
+            int num= s.charAt(i)-'a';
+            arr[num]++;
+        }
+        for(int i=0; i<t.length(); i++)
+        {
+            int num= t.charAt(i)-'a';
+            arr[num]--;
+        } 
+        for(int i=0; i<26; i++)
+        {
+            if(arr[i]!=0)
+                return false;
+        }
+        return true;
+    }
+}
