@@ -90,34 +90,34 @@ class Compute
     public long[] minAnd2ndMin(long a[], long n)  
     {
         //STEPS FOR SOLUTION:-
-        //1)Without using any extra space, create two variables 'first' and last
-        //2)First will store the first minimum element while last will store second minimum element
-        //3)Now traverse into the array and check if current element is smaller than first or not- if smaller then put a[i]= first and value of first will be stored into sec
-        //4)Also keep a check if the current element is smaller than last- if it is update last
-        //5)If last is not set then simply return -1
+        //1)Use two variables- min, secmin to store the minimium and second minimum element of array respectively
+        //2)Initialize both variable as integer's maximum value
+        //3)Check if a[i] is smaller than min- if it is then a[i] will become min and secmin will become previous min
+        //4)Also check if a[i] is smaller than secmin- if it is then a[i] will become secmin
+        //5)If no unique value for secmin is found then simply return ans array with one element i.e. -1
+        //Time Complexity:- O(N)- bcoz we are traversing into the array and updating values of min and secmin
+        //Space Complexity:- O(1)- no data structure created
         
-        long first=Integer.MAX_VALUE, last= Integer.MAX_VALUE;
-        
+        long min= Integer.MAX_VALUE, secmin= Integer.MAX_VALUE;
         for(int i=0; i<n; i++)
         {
-            if(first>a[i])
+            if(min>a[i])
             {
-                last=first;
-                first=a[i];
+                secmin= min;
+                min= a[i];
             }
-            else if(last>a[i] && first!=a[i])
-                last=a[i];
+            else if(secmin>a[i] && a[i]!=min)
+                secmin= a[i];
         }
-        
-        if(last==Integer.MAX_VALUE)
+        if(secmin!=Integer.MAX_VALUE)
         {
-            long ans[]={-1};
+            long ans[]= new long[2];
+            ans[0]= min;
+            ans[1]= secmin;
             return ans;
         }
         long ans[]= new long[2];
-        ans[0]=first;
-        ans[1]=last;
+        ans[0]= -1;
         return ans;
     }
 }
-
