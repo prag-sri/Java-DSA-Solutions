@@ -40,12 +40,17 @@ Constraints:
 
 class Solution {
     int MissingNumber(int array[], int n) {
-        int total= (n*(n+1))/2;
-        for(int i=0; i<n-1; i++)
-        {
-            total= total-array[i];
-        }
-        return total;
+        //STEPS FOR SOLUTION:-
+        //1)Take out sum of all nos. from 1 to n using the formula:- n(n+1)/2
+        //2)Now traverse into the array and keep on subtracting array[i] from sum
+        //3)At the end the value left in sum is the no. missing from the array
+        //Time Complexity:- O(N)
+        //Space Complexity:- O(1)
+        
+        int sum= (n*(n+1))/2;
+        for(int i=0; i<array.length; i++)
+            sum= sum-array[i];
+        return sum;
     }
 }
 
