@@ -1,1 +1,59 @@
+********************************************************************************************************************************************************************
+                                                        Find total number of distinct years from a string
+********************************************************************************************************************************************************************
 
+
+GFG Link:- https://www.geeksforgeeks.org/find-total-number-of-distinct-years-from-a-string/
+
+Given a string containing the words and dates, the task is to find the total number of distinct years mentioned in that string. 
+Note: Assuming that the date will be in ‘DD-MM-YYYY’ format. 
+
+Examples:  
+
+Input:  str = “UN was established on 24-10-1945. India got freedom on 15-08-1947.”
+Output: 2
+Explanation: 2 distinct years i.e. 1945 and 1947 have been referenced.
+
+Input: str = “Soon after the world war 2 ended on 02-09-1945. The UN was established on 24-10-1945.”
+Output: 1
+Explanation: Only 1 Year, i.e 1945 has been referenced .
+
+
+Approach: 
+
+Start traversing the string.
+Check if the current character is a digit. Store it in another string, i.e. dateString.
+Check if the current character is ‘-‘, then remove the characters stored in the dateString.
+Check if the length of the dateString is equal to 4, then it means that it is a year.
+Store that year in an unordered_set.
+Return the size of the unordered_set as it contains only unique values.
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+//Number of Distinct Year in a String
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		String str= sc.nextLine();
+		int n= str.length();
+		HashMap<Integer,Integer> map= new HashMap<>();
+		for(int i=0; i<n; i++)
+		{
+		    char ch= str.charAt(i);
+		    if(ch>='0' && ch<='9' && str.charAt(i+2)=='-')
+		    {
+		        i=i+6;
+		        int num= Integer.parseInt(str.substring(i,i+4));
+		        map.put(num,map.getOrDefault(num,0)+1);
+		        i=i+4;
+		    }
+		}
+		System.out.println(map.size());
+	}
+}
