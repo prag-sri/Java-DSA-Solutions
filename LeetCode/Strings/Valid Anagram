@@ -1,1 +1,65 @@
+********************************************************************************************************************************************************************
+                                                                      Valid Anagram
+********************************************************************************************************************************************************************
+
+
+LeetCode Link:- https://leetcode.com/problems/valid-anagram/
+
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+ 
+
+Example 1:
+
+Input: s = "anagram", t = "nagaram"
+Output: true
+Example 2:
+
+Input: s = "rat", t = "car"
+Output: false
+ 
+
+Constraints:
+
+1 <= s.length, t.length <= 5 * 104
+s and t consist of lowercase English letters.
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE- APPROACH 1
+********************************************************************************************************************************************************************
+
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        //STEPS FOR SOLUTION:-
+        //1)Create two hashmaps, storing all chars present in two strings
+        //2)At the end use the built in function to check whether both hashmaps are equal or not
+        //Time Complexity:- O(N)- bcoz of equals function
+        //Space Complexity:- O(N)- bcoz of two hashmaps created
+        
+        HashMap<Character,Integer> maps= new HashMap<>();
+        HashMap<Character,Integer> mapt= new HashMap<>();
+        
+        for(int i=0; i<s.length(); i++)
+            maps.put(s.charAt(i),maps.getOrDefault(s.charAt(i),0)+1);
+        
+        for(int i=0; i<t.length(); i++)
+            mapt.put(t.charAt(i),mapt.getOrDefault(t.charAt(i),0)+1);
+        
+        return maps.equals(mapt);
+    }
+}
+
+
+
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE- APPROACH 2
+********************************************************************************************************************************************************************
 
