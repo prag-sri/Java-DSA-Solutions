@@ -1,0 +1,76 @@
+********************************************************************************************************************************************************************
+                                                                      Program for Decimal to Hexadecimal
+********************************************************************************************************************************************************************
+
+
+GFG Link:- https://www.geeksforgeeks.org/program-decimal-hexadecimal-conversion/
+
+Given a decimal number as input, we need to write a program to convert the given decimal number into equivalent hexadecimal number. i.e convert the number with base value 10 to base value 16.
+
+Hexadecimal numbers use 16 values to represent a number. Numbers from 0-9 are expressed by digits 0-9 and 10-15 are represented by characters from A – F.
+
+Examples:  
+
+Input : 116
+Output: 74
+
+
+Input : 10
+Output: A
+
+Input : 33
+Output: 21
+
+Algorithm:
+
+Store the remainder when the number is divided by 16 in a temporary variable temp. If temp is less than 10, insert (48 + temp) in a character array otherwise if temp is greater than or equals to 10, insert (55 + temp) in the character array.
+Divide the number by 16 now
+Repeat the above two steps until the number is not equal to 0.
+Print the array in reverse order now.
+Example
+
+If the given decimal number is 2545. 
+
+Step 1: Calculate remainder when 2545 is divided by 16 is 1. Therefore, temp = 1. As temp is less than 10. So, arr[0] = 48 + 1 = 49 = ‘1’. 
+Step 2: Divide 2545 by 16. New number is 2545/16 = 159. 
+Step 3: Calculate remainder when 159 is divided by 16 is 15. Therefore, temp = 15. As temp is greater than 10. So, arr[1] = 55 + 15 = 70 = ‘F’. 
+Step 4: Divide 159 by 16. New number is 159/16 = 9. 
+Step 5: Calculate remainder when 9 is divided by 16 is 9. Therefore, temp = 9. As temp is less than 10. So, arr[2] = 48 + 9 = 57 = ‘9’. 
+Step 6: Divide 9 by 16. New number is 9/16 = 0. 
+Step 7: Since number becomes = 0. Stop repeating steps and print the array in reverse order. Therefore, the equivalent hexadecimal number is 9F1.
+
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+
+//Program for Decimal to HexaDecimal
+import java.util.Scanner;
+public class Main
+{
+	public static void main(String[] args) {
+		//STEPS FOR SOLUTION:-
+	    //1)Store the remainder when it is divided by 16 in a temp variable, if it is between 0 to 9 then its ok otherwise A,B,C,D comes into play
+	    //2)Store temp as a char in the string res
+	    //3)At the end reverse the string res and print it
+		
+		Scanner sc= new Scanner(System.in);
+	    int n= sc.nextInt();
+	    String res="";
+	    while(n!=0)
+	    {
+	        int temp= n%16;
+	        if(temp>=0 && temp<=9)
+	            res=res+(char)(temp+48); //converting int to char by adding with ascii value of temp
+	        else
+	            res=res+(char)(temp+55);    //ascii of A=65 so 10+55=65(asccii of A)
+	        n=n/16;
+	    }
+	    for(int i=res.length()-1; i>=0; i--)
+	        System.out.print(res.charAt(i));
+	}
+}
+
