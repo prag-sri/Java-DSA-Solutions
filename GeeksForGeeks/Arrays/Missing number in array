@@ -57,14 +57,19 @@ class Solution {
 
 class Solution {
     int MissingNumber(int array[], int n) {
+        //STEPS FOR SOLUTION:-
+        //1)Sort the array and using a variable find which no. is missing from the array
+        //Time Complexity:- O(NlogN)
+        //Space Complexity:- O(1)
+        
         Arrays.sort(array);
-        int j=1;
-        for(int i=0; i<n-1; i++)
+        int num=1;
+        for(int i=0; i<array.length; i++)
         {
-            if(array[i]!=j)
-                return j;
-            j++;
+            if(num!=array[i])
+                return num;
+            num++;
         }
-        return j;
+        return num;
     }
 }
