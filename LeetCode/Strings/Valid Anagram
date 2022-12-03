@@ -63,3 +63,21 @@ class Solution {
                                                                                CODE- APPROACH 2
 ********************************************************************************************************************************************************************
 
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        //STEPS FOR SOLUTION:-
+        //1)Convert both string into char array and sort the arrays
+        //2)Check if both arrays are equal or not using Java's inbuilt function
+        //Time Complexity:- O(N)- bcoz of toCharArray() + O(NlogN)- bcoz of sorting of arrays + O(N) -bcoz of Arrays.equals, overall TC= O(N+NlogN)
+        //Space Complexity:- O(N)- bcoz of creating char arrays
+        
+        char chs[]= s.toCharArray();
+        char cht[]= t.toCharArray();
+        
+        Arrays.sort(chs);
+        Arrays.sort(cht);
+        
+        return Arrays.equals(chs,cht);
+       
+    }
+}
