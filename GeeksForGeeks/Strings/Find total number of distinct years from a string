@@ -34,7 +34,15 @@ Return the size of the unordered_set as it contains only unique values.
                                                                                CODE
 ********************************************************************************************************************************************************************
 
-//Number of Distinct Year in a String
+//Find total number of distinct years from a string
+
+//STEPS FOR SOLUTION:-
+//1)Take the string as input and store the length of the string in variable n 
+//2)Traverse into the string and soon as you find any digit that is the first digit of day and we need to find the 
+//year (eg:24-10-1945) so we skip to i+6th index bcoz from there year is starting
+//3)Convert the substring from index i+6th index till i+10th index(excluding) into num
+//4)Store all years with their frequency in the hashmap and at the end just print the size of the hashmap that is the ans for no. 
+//of years present in the string
 import java.util.*;
 public class Main
 {
@@ -42,16 +50,21 @@ public class Main
 		Scanner sc= new Scanner(System.in);
 		String str= sc.nextLine();
 		int n= str.length();
+		
 		HashMap<Integer,Integer> map= new HashMap<>();
+		
 		for(int i=0; i<n; i++)
 		{
 		    char ch= str.charAt(i);
-		    if(ch>='0' && ch<='9' && str.charAt(i+2)=='-')
+		    if(ch>='0' && ch<='9')
 		    {
-		        i=i+6;
-		        int num= Integer.parseInt(str.substring(i,i+4));
-		        map.put(num,map.getOrDefault(num,0)+1);
-		        i=i+4;
+		        if(i+2<n && str.charAt(i+2)=='-')         //signifies that it is actually a date and not some no.
+		        {
+		            i=i+6;
+		            int num= Integer.parseInt(str.substring(i,i+4));
+		            //System.out.println(str.substring(i,i+4));
+		            map.put(num,map.getOrDefault(num,0)+1);
+		        }
 		    }
 		}
 		System.out.println(map.size());
