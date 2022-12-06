@@ -1,0 +1,51 @@
+********************************************************************************************************************************************************************
+                                                                           Counting Sort
+********************************************************************************************************************************************************************
+
+Counting Sort: It uses a frequency array whose size is equal to the (max_element_of_array)+1, also increasing frequency of the frequency array based on the elements of array. Like for eg: if arr[]={1,1,2,3,3,3} the freq[1]=2, freq[2]=1, freq[3]=3. Then at the end traverse into the freq array and update value of arr and keep on decrementing the freq array values also
+
+Time Complexity: O(N)
+Space Complexity: O(N)
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+import java.util.Scanner;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		int n= sc.nextInt();
+		int arr[]= new int[n];
+		int max_element=Integer.MIN_VALUE;
+		for(int i=0; i<n; i++)
+		{
+		    arr[i]= sc.nextInt();
+		    max_element= Math.max(max_element,arr[i]);
+		}
+		    
+        int freq[]= new int[max_element+1];
+        
+        for(int i=0; i<n; i++)
+        {
+            freq[arr[i]]++;
+        }
+        
+        int count=0;
+        for(int i=0; i<=max_element; i++)
+        {
+            int frequency= freq[i];
+            while(frequency>0)
+            {
+                arr[count]=i;
+                frequency--;
+                count++;
+            }
+        }
+		
+		for(int i=0; i<n; i++)
+		    System.out.print(arr[i]+" ");
+	}
+}
