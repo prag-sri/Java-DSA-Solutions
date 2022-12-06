@@ -6,7 +6,7 @@ Merge Sort:- Dividing each of the elements of array and then merging them in asc
 This technique uses 'Divide and Conquer' technique
 
 Time Complexity: O(N)
-Space Complexity: O(1)
+Space Complexity: O(N)
 
 
 ********************************************************************************************************************************************************************
