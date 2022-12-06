@@ -1,0 +1,91 @@
+********************************************************************************************************************************************************************
+                                                                           Merge Sort
+********************************************************************************************************************************************************************
+
+Merge Sort:- Dividing each of the elements of array and then merging them in ascending order 
+This technique uses 'Divide and Conquer' technique
+
+Time Complexity: O(N)
+Space Complexity: O(1)
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		int n= sc.nextInt();
+		int arr[]= new int[n];
+		for(int i=0; i<n; i++)
+		{
+		    arr[i]= sc.nextInt();
+		}
+		    
+		
+        divide(0,n-1,arr);
+		
+		for(int i=0; i<n; i++)
+		    System.out.print(arr[i]+" ");
+	}
+	
+	public static void divide(int start, int end, int[] arr)
+	{
+	    if(start>=end)
+	        return;
+	   
+	    int mid= (start+end)/2;
+	    
+	    divide(start,mid,arr);
+	    divide(mid+1,end,arr);
+	    
+	    conquer(start,mid,end,arr);
+	}
+	
+	public static void conquer(int start, int mid, int end, int[] arr)
+	{
+	    ArrayList<Integer> a= new ArrayList<>();
+	    for(int i=start; i<=mid; i++)
+	        a.add(arr[i]);
+	    ArrayList<Integer> b= new ArrayList<>();
+	    for(int i=mid+1; i<=end; i++)
+	        b.add(arr[i]);
+	        
+	   ArrayList<Integer> c= new ArrayList<>();
+	        
+	   int i=0, j=0;
+	   while(i<a.size() && j<b.size())
+	   {
+	       if(a.get(i)<b.get(j))
+	       {
+	           c.add(a.get(i));
+	           i++;
+	       }
+	       else
+	       {
+	           c.add(b.get(j));
+	           j++;
+	       }
+	   }
+	   
+	   while(i<a.size())
+	   {
+	       c.add(a.get(i));
+	       i++;
+	   }
+	   
+	   while(j<b.size())
+	   {
+	       c.add(b.get(j));
+	       j++;
+	   }
+	   
+	   for(int k=0; k<c.size(); k++)
+	   {
+	       arr[start+k]= c.get(k);
+	   }
+	}
+}
