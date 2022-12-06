@@ -1,0 +1,61 @@
+********************************************************************************************************************************************************************
+                                                                           Insertion Sort
+********************************************************************************************************************************************************************
+
+//Insertion Sort: In Insertion Sort we are using a sliding window concept where window will be incresing with each iteration.
+//Pointer i will be pointing to  the end of this window whereas pointer j will start from i-1 and move in decreasing order till 
+//the start of the window i.e. until j!=0
+//So the work of j is to decrement and make space for the right index of ith element by checking if the ith element is smaller than
+//jth element it will just update the j+1th index value as jth index value- we have to keep repeating this until jth index value is
+//no longer greater than ith index value now at this jth index value is smaller than ith index value- place ith index value into 
+//j+1th index
+
+//Example:- 13 12 11
+//          j  i      -> 12 is already stored as currentElement
+//          13 13 11
+//          j  i      -> now j has become -1 so updating j+1 index element as currentElement
+//          12 13 11
+
+//          12 13 11        -> currentElement=11
+//             j  i 
+//          12 13 13
+//          j      i 
+//          12 12 13        -> after this j becomes -1 so updating j+1th index as currentElement
+
+//          11 12 13  -> Now in correct order
+
+//Time Complexity: O(N^2), Space Complexity: O(1)
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+import java.util.Scanner;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		int n= sc.nextInt();
+		int arr[]= new int[n];
+		for(int i=0; i<n; i++)
+		{
+		    arr[i]= sc.nextInt();
+		}
+		    
+		for(int i=1; i<n; i++)
+		{
+		    int currentElement= arr[i];
+		    int j= i-1;
+		    while(j>=0 && currentElement<arr[j])
+		    {
+		        arr[j+1]= arr[j];
+		        j--;
+		    }
+		    arr[j+1]=currentElement;
+		}
+		
+		for(int i=0; i<n; i++)
+		    System.out.print(arr[i]+" ");
+	}
+}
