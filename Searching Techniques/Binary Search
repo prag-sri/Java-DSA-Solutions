@@ -1,0 +1,70 @@
+********************************************************************************************************************************************************************
+                                                                           Binary Search
+********************************************************************************************************************************************************************
+
+Binary Search: This algorithm can only be applied if the array is sorted and rotated, also the array should not have repeating elements 
+Finding the mid of the array- check if middle element is equal to target or not- if not then checking which of the two halves is sorted- after finding the sorted half,
+checking if the target comes in the range of that sorted half if not then move on to the unsorted half- keep on repeating the process until we find the target 
+element in the array or start becomes greater than end.
+
+Time Complexity: O(NlogN)
+Space Complexity: O(1)
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		int n= sc.nextInt();
+		int target= sc.nextInt();
+		int arr[]= new int[n];
+		for(int i=0; i<n; i++)
+		{
+		    arr[i]= sc.nextInt();
+		}
+		
+		int ans=-1;
+		int start=0, end=n-1;
+		while(start<=end)
+		{
+		    int mid=(start+end)/2;
+		    if(arr[mid]==target)
+		    {
+		        ans=mid;
+		        break;
+		    }
+		    else if(arr[start]<arr[mid-1])
+		    {
+		        if(arr[start]<=target && target<=arr[mid-1])
+		        {
+		            end=mid-1;
+		        }
+		        else
+		        {
+		            start=mid+1;
+		        }
+		    }
+		    else
+		    {
+		        if(arr[mid+1]<=target && target<=arr[end])
+		        {
+		            start=mid+1;
+		        }
+		        else
+		        {
+		            end= mid-1;
+		        }
+		    }
+		}
+		
+		if(ans==-1)
+		    System.out.println("Element not found");
+		else
+		    System.out.println(ans);
+	}
+}
