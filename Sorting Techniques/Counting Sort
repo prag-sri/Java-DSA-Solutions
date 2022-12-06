@@ -4,6 +4,8 @@
 
 Counting Sort: It uses a frequency array whose size is equal to the (max_element_of_array)+1, also increasing frequency of the frequency array based on the elements of array. Like for eg: if arr[]={1,1,2,3,3,3} the freq[1]=2, freq[2]=1, freq[3]=3. Then at the end traverse into the freq array and update value of arr and keep on decrementing the freq array values also
 
+This approach is only if elements are in range 0-10^5
+
 Time Complexity: O(N)
 Space Complexity: O(N)
 
