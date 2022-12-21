@@ -1,1 +1,70 @@
+********************************************************************************************************************************************************************
+                                                                      Longest Common Prefix
+********************************************************************************************************************************************************************
 
+
+LeetCode Link:- https://leetcode.com/problems/longest-common-prefix/description/
+
+
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+ 
+
+Example 1:
+
+Input: strs = ["flower","flow","flight"]
+Output: "fl"
+Example 2:
+
+Input: strs = ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+ 
+
+Constraints:
+
+1 <= strs.length <= 200
+0 <= strs[i].length <= 200
+strs[i] consists of only lowercase English letters.
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        //STEPS FOR SOLUTION:-
+        //1) Firstly store strs[0] in a String variable tmp
+        //2) Use a for loop for traversing through each of the elements of the array str
+        //3) Initialize a variable end=0 and a boolean flag= false
+        //4) Use a while loop, increment end until ith char of tmp and strs[i]'s are equal
+        //5) Modify String tmp as substring from 0 till end- but if flag is still false then return ans empty string as the ans
+        //Time Complexity: O(N+m)  where N= length of strs array, m= length of common prefix
+        //Space Complexity: O(1)
+
+        int n= strs.length;
+
+        String tmp= strs[0];
+
+        for(int i=1; i<n; i++)
+        {
+            boolean flag= false;
+            int end= 0;
+            int size= Math.min(tmp.length(),strs[i].length());
+            while(end<size && tmp.charAt(end)==strs[i].charAt(end))
+            {
+                flag= true;
+                end++;
+            }
+            if(!flag)
+                return "";
+            tmp= tmp.substring(0,end);
+        }
+
+        return tmp;
+    }
+}
