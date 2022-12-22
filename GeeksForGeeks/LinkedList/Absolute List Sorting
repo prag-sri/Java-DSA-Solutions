@@ -47,7 +47,7 @@ Constraints
 
 
 ********************************************************************************************************************************************************************
-                                                                               CODE
+                                                                               CODE- APPROACH 1
 ********************************************************************************************************************************************************************
 
 class Solution
@@ -78,6 +78,59 @@ class Solution
 		    curr.data= temp.get(i);
 		    curr= curr.next;
 		    i++;
+		}
+		
+		return head;
+	}
+}
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE- APPROACH 2
+********************************************************************************************************************************************************************
+
+class Solution
+{
+	Node sortList(Node head) {
+		//STEPS FOR SOLUTION:-
+		//1) 1   ->   -2   ->   -3   ->   4   ->   -5
+		//   prev    curr       nxt
+		//2) If curr.data<0 then modify connections- make curr as head i.e. curr.next= head
+		//3) -2   -> <-  1      -3   ->   4   ->   -5
+		//   curr       prev    nxt 
+		//4) Also make prev.next= nxt and then head= curr
+		//5) -2         ->    1    ->   -3   ->   4   ->   -5
+		//   curr/head       prev       nxt 
+		//6) Now just update prev, curr and nxt
+		//7) -2   ->   1   ->   -3   ->   4   ->   -5
+		//            prev     curr      nxt
+		
+		//Time Complexity: O(N)
+		//Space Complexity: O(1)
+		
+		if(head==null || head.next==null)
+		    return head;
+		    
+		Node prev= head;
+		Node curr= head.next;
+		
+		while(curr!=null)
+		{
+		    if(curr.data<0)
+		    {
+		        Node nxt= curr.next;
+		        prev.next= nxt;
+		        curr.next= head;
+		        head= curr;
+		        curr= prev.next;
+		    }
+		    else
+		    {
+		       prev= curr;
+		       curr= curr.next; 
+		    }
+		    
 		}
 		
 		return head;
