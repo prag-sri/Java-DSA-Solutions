@@ -1,1 +1,74 @@
+********************************************************************************************************************************************************************
+                                                                      Pascal's Triangle II  
+********************************************************************************************************************************************************************
 
+LeetCode Link:- https://leetcode.com/problems/pascals-triangle-ii/description/
+
+
+Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.
+
+In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+
+
+Example 1:
+
+Input: rowIndex = 3
+Output: [1,3,3,1]
+Example 2:
+
+Input: rowIndex = 0
+Output: [1]
+Example 3:
+
+Input: rowIndex = 1
+Output: [1,1]
+ 
+
+Constraints:
+
+0 <= rowIndex <= 33
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        //STEPS FOR SOLUTION:-
+        //1)Create an ArrayList of ArrayList namely 'list' which will store all the lists of value of Pascal's Triangle
+        //2)Initilally add 1 in the 'list'
+        //3)Use a while loop which will be calculating the row of list and it will go until i!=rowIndex (first 1 does not count- so initialize i=0)
+        //4)In the next arraylist add 1 initially
+        //5)Then, inside the while loop will be a for loop which will calculate the sum of jth and j+1th index values of previous arraylist
+        //6)Outside the for loop add 1 again in the new arraylist
+        //7)After coming out of the while loop simply return the current arraylist of 'list'
+
+
+        List<List<Integer>> list= new ArrayList<>();
+        List<Integer> curr= new ArrayList<>();
+        curr.add(1);
+        if(rowIndex<=0)
+            return curr;
+        list.add(curr);
+
+        int i=1;
+        while(i<=rowIndex)
+        {
+            curr= new ArrayList<>();
+            curr.add(1);
+            int size= list.get(i-1).size();
+            for(int j=0; j<size-1; j++)
+            {
+                int num= list.get(i-1).get(j)+list.get(i-1).get(j+1);
+                curr.add(num);
+            }
+            curr.add(1);
+            list.add(curr);
+            i++;
+        }
+
+        return list.get(i-1);
+    }
+}
