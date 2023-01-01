@@ -52,6 +52,8 @@ class Solution{
         //1)Use a priority queue and add all elements of array arr
         //2)Use a while loop and remove first k-1 elements of Priority Queue
         //3)Return peek element of Priority Queue
+        //Time Complexity- O(N)
+        //Space Complexity- O(log N)
         
         PriorityQueue<Integer> pq= new PriorityQueue<>();
         
