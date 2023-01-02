@@ -1,0 +1,85 @@
+********************************************************************************************************************************************************************
+                                                                         Detect Capital
+********************************************************************************************************************************************************************
+
+LeetCode Link:- https://leetcode.com/problems/detect-capital/description/
+
+
+We define the usage of capitals in a word to be right when one of the following cases holds:
+
+All letters in this word are capitals, like "USA".
+All letters in this word are not capitals, like "leetcode".
+Only the first letter in this word is capital, like "Google".
+Given a string word, return true if the usage of capitals in it is right.
+
+ 
+
+Example 1:
+
+Input: word = "USA"
+Output: true
+Example 2:
+
+Input: word = "FlaG"
+Output: false
+ 
+
+Constraints:
+
+1 <= word.length <= 100
+word consists of lowercase and uppercase English letters.
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+
+class Solution {
+    public boolean detectCapitalUse(String word) {
+        //STEPS FOR SOLUTION:-
+        //1)Check if first char is capital or not. If not capital then all chars have to lie between a and z- if not return false
+        //2)If first char is capital then check for sec char- if sec is also capital then all chars should lie between A and Z- if sec is not capital then all chars should lie between a and z
+
+        int n= word.length();
+        if(n==0 || n==1)
+            return true;
+        boolean first_capital= (word.charAt(0)>='A' && word.charAt(0)<='Z')?true:false;
+        boolean sec_capital= (word.charAt(1)>='A' && word.charAt(1)<='Z')?true:false;
+
+        if(!first_capital && sec_capital)
+            return false;
+
+        int i=2;
+        if(first_capital && sec_capital)
+        {
+            while(i<n)
+            {
+                if(word.charAt(i)>='a' && word.charAt(i)<='z')
+                    return false;
+                i++;
+            }
+        }
+        else if(!first_capital && !sec_capital)
+        {
+            while(i<n)
+            {
+                if(word.charAt(i)>='A' && word.charAt(i)<='Z')
+                    return false;
+                i++;
+            }
+        }
+        else if(first_capital && !sec_capital)
+        {
+            while(i<n)
+            {
+                if(word.charAt(i)>='A' && word.charAt(i)<='Z')
+                    return false;
+                i++;
+            }
+        }
+
+        return true;
+    }
+}
