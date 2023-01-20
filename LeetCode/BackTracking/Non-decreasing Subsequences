@@ -1,0 +1,57 @@
+********************************************************************************************************************************************************************
+                                                                   Non-decreasing Subsequences
+********************************************************************************************************************************************************************
+
+LeetCode Link:- https://leetcode.com/problems/non-decreasing-subsequences/description/
+
+
+Given an integer array nums, return all the different possible non-decreasing subsequences of the given array with at least two elements. You may return the answer in any order.
+
+ 
+
+Example 1:
+
+Input: nums = [4,6,7,7]
+Output: [[4,6],[4,6,7],[4,6,7,7],[4,7],[4,7,7],[6,7],[6,7,7],[7,7]]
+Example 2:
+
+Input: nums = [4,4,3,2,1]
+Output: [[4,4]]
+ 
+
+Constraints:
+
+1 <= nums.length <= 15
+-100 <= nums[i] <= 100
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+class Solution {
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        int n= nums.length;
+        Set<List<Integer>> ans= new HashSet<>();
+        recur(nums,0,n,new ArrayList<>(),ans);
+        return new ArrayList<>(ans);
+    }
+
+    public void recur(int[] nums, int index, int size, List<Integer> curr, Set<List<Integer>> ans)
+    {
+        if(index>=size)
+        {
+            if(curr.size()>1)
+                ans.add(new ArrayList<>(curr));
+            return;
+        }
+
+        if(curr.isEmpty() || nums[index]>=curr.get(curr.size()-1))
+        {
+            curr.add(nums[index]);
+            recur(nums,index+1,size,curr,ans);
+            curr.remove(curr.size()-1);
+        }
+
+        recur(nums,index+1,size,curr,ans);
+    }
+}
