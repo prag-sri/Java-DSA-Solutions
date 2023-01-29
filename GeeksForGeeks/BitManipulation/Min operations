@@ -1,0 +1,66 @@
+********************************************************************************************************************************************************************
+                                                                          Min operations
+********************************************************************************************************************************************************************
+
+GFG Link:- https://practice.geeksforgeeks.org/problems/5a7e1a52f1b7796238f9efea4c6fda389f26c327/1
+
+
+Given two numbers a and b. In one operation you can pick any non negative integer x and either of a or b. Now if you picked a then replace a with a&x else if you picked b then replace b with b&x.
+
+Return the minimum number of operation required to make a and b equal.
+
+Note: Here & represents bitwise AND operation.
+
+Example 1:
+
+Input:
+a = 5, b = 12
+Output:
+2
+Explanantion:
+In first operation replace 
+a = a&4 = 4
+after that replace 
+b = b&6 = 4
+Hence both are same after applying two
+operations.
+Example 2:
+
+Input: 
+a = 100, b = 100
+Output: 
+0
+Explanation: 
+Already same.
+Your Task:
+You don't need to read, input, or print anything. Your task is to complete the function solve( ), which takes two integers a and b as input parameters and returns the answer.
+
+Expected Time Complexity: O(1)
+Expected Auxiliary Space: O(1)
+Constraints:
+0 ≤ a, b ≤ 109
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+class Solution {
+    public static int solve(int a, int b) {
+//      Approach:
+//           1. If a == b, then no need of operations, so answer = 0
+//           2. Else if a & b equals to either a or b, then in 1 operation,
+//              we can make a and b equal.
+//           3. Else, we can make a == b in 2 opeartions. Find a & b, 
+//              say x = a & b, then x & a will be equal to x & b.
+
+        if(a==b)
+            return 0;
+        else if((a&b)==a || (a&b)==b)
+            return 1;
+        else 
+            return 2;
+    }
+}
+       
