@@ -1,0 +1,97 @@
+********************************************************************************************************************************************************************
+                                                                     Zigzag Conversion
+********************************************************************************************************************************************************************
+
+LeetCode Link:- https://leetcode.com/problems/zigzag-conversion/description/
+
+
+The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+P   A   H   N
+A P L S I I G
+Y   I   R
+And then read line by line: "PAHNAPLSIIGYIR"
+
+Write the code that will take a string and make this conversion given a number of rows:
+
+string convert(string s, int numRows);
+ 
+
+Example 1:
+
+Input: s = "PAYPALISHIRING", numRows = 3
+Output: "PAHNAPLSIIGYIR"
+Example 2:
+
+Input: s = "PAYPALISHIRING", numRows = 4
+Output: "PINALSIGYAHRPI"
+Explanation:
+P     I    N
+A   L S  I G
+Y A   H R
+P     I
+Example 3:
+
+Input: s = "A", numRows = 1
+Output: "A"
+ 
+
+Constraints:
+
+1 <= s.length <= 1000
+s consists of English letters (lower-case and upper-case), ',' and '.'.
+1 <= numRows <= 1000
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+class Solution {
+    public String convert(String s, int numRows) {
+       if (numRows==1)
+           return s;
+        ArrayList<ArrayList<Character>> array= new ArrayList<>();
+        //just making 3 rows in the arrayList of arrayList array-
+        for (int i=0; i<numRows; i++)
+        {
+            ArrayList<Character> elements= new ArrayList<>();
+            array.add(elements);
+        }
+        
+        //3 rows created- now iterating in string and adding char in arrayList of arrayList
+        int index=0;  //index is where char is to be added
+        int change=1;  //first index gets increased by 1 then decremented by 1 so done by change
+        for (int i=0; i<s.length(); i++)
+        {
+            array.get(index).add(s.charAt(i));
+            index+=change;
+            
+            //if index==numRows- index decrements- with char now at second last position
+            if (index==numRows)
+            {
+                index-=2;
+                change=-1;
+            }
+            
+            //if char is filled at 0th position- index becomes -1 so after char in 0th postion, char to be filled at 1 postion
+            if (index<0)
+            {
+                index+=2;   //-1+2=1
+                change=1;
+            }
+        }
+        
+        //adding arraylist to a String 
+        String ans="";
+        for (int i=0; i<numRows; i++)
+        {
+            for (int j=0; j<array.get(i).size(); j++)
+            {
+                ans+=array.get(i).get(j);
+            }
+        }
+        return ans;
+    }
+}
