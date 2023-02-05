@@ -1,0 +1,95 @@
+********************************************************************************************************************************************************************
+                                                                     Find All Anagrams in a String
+********************************************************************************************************************************************************************
+
+LeetCode Link:- https://leetcode.com/problems/find-all-anagrams-in-a-string/description/
+
+
+Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+ 
+
+Example 1:
+
+Input: s = "cbaebabacd", p = "abc"
+Output: [0,6]
+Explanation:
+The substring with start index = 0 is "cba", which is an anagram of "abc".
+The substring with start index = 6 is "bac", which is an anagram of "abc".
+Example 2:
+
+Input: s = "abab", p = "ab"
+Output: [0,1,2]
+Explanation:
+The substring with start index = 0 is "ab", which is an anagram of "ab".
+The substring with start index = 1 is "ba", which is an anagram of "ab".
+The substring with start index = 2 is "ab", which is an anagram of "ab".
+ 
+
+Constraints:
+
+1 <= s.length, p.length <= 3 * 104
+s and p consist of lowercase English letters.
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        //STEPS FOR SOLUTION:-
+        //1)Create a Hashmap map1 and store chars of p
+        //2)Create a Hashmap map2 to store chars of string s, window length= p.length()
+        //3)Initialize i which will be the starting index of every window
+        //4)If map1==map2, add value of i in result arraylist
+        //5)Traverse string s and find more windows while also updating map2
+
+        List<Integer> result= new ArrayList<>();
+
+        if(p.length()>s.length())       //Edge case
+            return result;
+
+        HashMap<Character,Integer> map1= new HashMap<>();
+        for(int i=0; i<p.length(); i++)
+        {
+            char ch= p.charAt(i);
+            map1.put(ch,map1.getOrDefault(ch,0)+1);
+        }
+
+        HashMap<Character,Integer> map2= new HashMap<>();
+        for(int i=0; i<p.length(); i++)
+        {
+            char ch= s.charAt(i);
+            map2.put(ch,map2.getOrDefault(ch,0)+1);
+        }
+
+        int i=0;
+
+        if(map1.equals(map2))
+            result.add(i);
+
+        for(int j=p.length(); j<s.length(); j++)
+        {
+            char chi= s.charAt(i);
+            char chj= s.charAt(j);
+
+            map2.put(chi,map2.get(chi)-1);
+            if(map2.get(chi)==0)
+                map2.remove(chi);
+
+            map2.put(chj,map2.getOrDefault(chj,0)+1);
+
+            i++;
+
+            if(map1.equals(map2))
+                result.add(i);
+        }
+
+        return result;
+        
+    }
+}
