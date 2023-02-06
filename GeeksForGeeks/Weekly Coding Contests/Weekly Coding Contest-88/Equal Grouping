@@ -1,0 +1,61 @@
+********************************************************************************************************************************************************************
+                                                                          Equal Grouping
+********************************************************************************************************************************************************************
+
+GFG Problem Link:- https://practice.geeksforgeeks.org/contest/gfg-weekly-coding-contest-88/problems/#
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+//User function Template for Java
+
+class Solution{
+    public int rangeOR(int n){
+        int count=0;
+        for(int i=0; i<32; i++)
+        {
+            if((int)Math.pow(2,i)>n)
+            {
+               count= i-1;
+               break;
+            }
+        }
+        int result= 0;
+        for(int i=0; i<=count; i++)
+            result= (result|(1<<i));
+        return result;
+    }
+}class Solution{
+    public int evenGrouping(int n, int a[]){
+       //1 2 3  -> 4 5 6
+       //Access to the last inserted element
+       //Removal of the last element
+       //Insert new element at the end
+       
+       //7 8 6 4 -> 2 3 2 2
+       for(int i=0; i<n; i++)
+       {
+           int y=1;
+           while(a[i]!=0)
+           {
+               a[i]= a[i]/2;
+               y++;
+           }
+           a[i]=y;
+       }
+       Stack<Integer> st= new Stack<>();
+       for(int i=0; i<n; i++)
+       {
+           boolean flag= false;
+           while(!st.isEmpty() && a[i]==st.peek())
+            {
+               st.pop();
+               flag= true; 
+            }
+           if(!flag)
+             st.push(a[i]);
+       }
+       return st.size();
+    }
+}
