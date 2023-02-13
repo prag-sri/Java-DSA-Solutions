@@ -2,7 +2,7 @@
                                                      Maximum Count of Positive Integer and Negative Integer
 ********************************************************************************************************************************************************************
 
-LeetCode Link:- https://leetcode.com/problems/maximum-count-of-positive-integer-and-negative-integer/description/
+LeetCode Problem Link:- https://leetcode.com/problems/maximum-count-of-positive-integer-and-negative-integer/description/
 
 
 Given an array nums sorted in non-decreasing order, return the maximum between the number of positive integers and the number of negative integers.
