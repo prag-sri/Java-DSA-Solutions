@@ -1,0 +1,86 @@
+********************************************************************************************************************************************************************
+                                                                          Is it Fibonacci
+********************************************************************************************************************************************************************
+
+GFG Problem Link:- https://practice.geeksforgeeks.org/problems/202d95ecdeec659401edc63dd952b1d37b989ab8/1
+
+
+Geek just learned about Fibonacci numbers.
+
+The Fibonacci Sequence is the series of numbers: 0, 1, 1, 2, 3, 5, 8, 13, ...
+where the next number is found by adding up the two numbers before it.
+
+He defines a new series called Geeky numbers. Here the next number is the sum of the K preceding numbers.
+You are given an array of size K, GeekNum[ ], where the ith element of the array represents the ith Geeky number. Return its Nth term.
+
+Note: This problem can be solved in O(N2) time complexity but the user has to solve this in O(N). The Constraints are less because there can be integer overflow in the terms.
+
+Example 1:
+
+Input:
+N = 6, K = 1
+GeekNum[] = {4}
+Output: 
+4
+Explanation: 
+Terms are 4, 4, 4, 4, 4, 4
+Example 2:
+
+Input:
+N = 5, K = 3
+GeekNum[] = {0, 1, 2}
+Output: 
+6
+Explanation: 
+Terms are 0, 1, 2, 3, 6.
+So the 5th term is 6
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function solve( ) which takes integer N, K, and an array GeekNum[] as input parameters and returns the Nth term of the Geeky series.
+
+Expected Time Complexity: O(N)
+Expected Space Complexity: O(N)
+
+Constraints:
+1 ≤ K < 30
+1 ≤ N ≤ 70
+K ≤ N
+0 < GeekNum[ ] < 100
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+//User function Template for Java
+
+class Solution {
+    static long solve(int N, int K, ArrayList<Long> GeekNum) {
+        //STEPS FOR SOLUTION:-
+        //1)Find out the sum of all elements of GeekNum (size=K) and add it to arraylist- this is the K+1th element of arraylist
+        //2)We will be adding elements from K+1 to N in the same arrayList
+        //3)Take two pointers i and j- i will be pointing to the start of the arraylist and j will be pointing to the end of arraylist
+        //4)Using the 2 pointers approach we will be updating the value of sum where sum-=arraylist's ith element and sum+= arraylist's jth element
+        //5)Use a for loop which will run from K till N
+        //6)At the end return sum
+        
+        if(N==K)            //Edge case
+            return GeekNum.get(K-1);
+        
+        long sum= 0l;
+        for(int i=0; i<K; i++)
+            sum+= GeekNum.get(i);
+        GeekNum.add(sum);
+            
+        int i=0, j=K;
+        for(int a=K+1; a<N; a++)
+        {
+           sum-= GeekNum.get(i);
+           sum+= GeekNum.get(j);
+           GeekNum.add(sum);
+           i++;
+           j++;
+        }
+        
+        return sum;
+        
+    }
+}
