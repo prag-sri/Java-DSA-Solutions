@@ -1,0 +1,81 @@
+********************************************************************************************************************************************************************
+                                                               Single Element in a Sorted Array
+********************************************************************************************************************************************************************
+
+LeetCode Link:- https://leetcode.com/problems/single-element-in-a-sorted-array/description/
+
+
+You are given a sorted array consisting of only integers where every element appears exactly twice, except for one element which appears exactly once.
+
+Return the single element that appears only once.
+
+Your solution must run in O(log n) time and O(1) space.
+
+ 
+
+Example 1:
+
+Input: nums = [1,1,2,3,3,4,4,8,8]
+Output: 2
+Example 2:
+
+Input: nums = [3,3,7,7,10,11,11]
+Output: 10
+ 
+
+Constraints:
+
+1 <= nums.length <= 105
+0 <= nums[i] <= 105
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+class Solution {
+    public int singleNonDuplicate(int[] nums) {
+        //STEPS FOR SOLUTION:-
+        //1)Find the index of the middle element
+        //2)Let us suppose array contains only pairs, then in case of even value of mid, the pair should have been present at mid and mid+1 - if such is the case then that element with single freq is present on right part else on left part
+        //3)In case of odd value of mid, the pair should be present at mid and mid-1 - if such is the case then that element with single freq is present on right part else on left part
+
+        int n= nums.length;
+        if(n==0)
+            return -1;
+        if(n==1)
+            return nums[0];
+        int start=0, end=n-1;
+        int mid= (start+end)/2;
+
+        if(mid%2==0)    //checking if mid index is even or odd
+        {
+           if(nums[mid]==nums[mid+1])       //if true then target on rightside else on leftside
+               start= mid;
+           else
+               end= mid;  
+        }
+        else
+        {
+            if(nums[mid]==nums[mid-1])      //if true the target on rightside else on leftside
+                start= mid+1;
+            else
+                end= mid;
+        }
+
+        int ans= nums[start];
+        while(start<=end)
+        {
+            if(start==end || nums[start]!=nums[start+1])
+            {
+                ans= nums[start];
+                break;
+            }
+            start=start+2;
+        }
+        return ans;
+
+        
+    }
+}
