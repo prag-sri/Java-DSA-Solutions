@@ -1,0 +1,130 @@
+********************************************************************************************************************************************************************
+                                                                        Rotting Oranges
+********************************************************************************************************************************************************************
+
+LeetCode Link:- https://leetcode.com/problems/rotting-oranges/description/
+
+
+You are given an m x n grid where each cell can have one of three values:
+
+0 representing an empty cell,
+1 representing a fresh orange, or
+2 representing a rotten orange.
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+
+Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.
+
+ 
+
+Example 1:
+
+
+Input: grid = [[2,1,1],[1,1,0],[0,1,1]]
+Output: 4
+Example 2:
+
+Input: grid = [[2,1,1],[0,1,1],[1,0,1]]
+Output: -1
+Explanation: The orange in the bottom left corner (row 2, column 0) is never rotten, because rotting only happens 4-directionally.
+Example 3:
+
+Input: grid = [[0,2]]
+Output: 0
+Explanation: Since there are already no fresh oranges at minute 0, the answer is just 0.
+ 
+
+Constraints:
+
+m == grid.length
+n == grid[i].length
+1 <= m, n <= 10
+grid[i][j] is 0, 1, or 2.
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+class Pair {
+    int a;
+    int b;
+    Pair(int a, int b){
+        this.a= a;
+        this.b= b;
+    }
+}
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        int m= grid.length;
+        int n= grid[0].length;
+        Queue<Pair> q= new LinkedList<>();
+        boolean rotten= false;
+        boolean notRotten= false;
+        for(int i=0; i<m; i++)
+        {
+            for(int j=0; j<n; j++)
+            {                
+                if(grid[i][j]==2)
+                {
+                    q.add(new Pair(i,j));
+                    rotten= true;
+                }
+
+                if(grid[i][j]==1)
+                    notRotten= true;
+            }
+        }
+        if(!notRotten || (!notRotten && !rotten))
+            return 0;
+        if(!rotten)
+            return -1;
+
+        int count= 0;
+        while(!q.isEmpty())
+        {
+            int size= q.size();
+            for(int i=0; i<size; i++)
+            {
+                Pair p= q.remove();
+                int a= p.a;
+                int b= p.b;
+
+                if(a>0 && grid[a-1][b]==1)      //left
+                {
+                    grid[a-1][b]=2;
+                    q.add(new Pair(a-1,b));
+                }
+                if(a+1<m && grid[a+1][b]==1)      //right
+                {
+                    grid[a+1][b]=2;
+                    q.add(new Pair(a+1,b));
+                }
+                if(b>0 && grid[a][b-1]==1)      //up
+                {
+                    grid[a][b-1]=2;
+                    q.add(new Pair(a,b-1));
+                }
+                if(b+1<n && grid[a][b+1]==1)      //down
+                {
+                    grid[a][b+1]=2;
+                    q.add(new Pair(a,b+1));
+                }
+
+            }
+            if(!q.isEmpty())
+                count++;
+        }
+
+        for(int i=0; i<m; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                if(grid[i][j]==1)
+                    return -1;
+            }
+        }
+
+        return count;
+    }
+}
