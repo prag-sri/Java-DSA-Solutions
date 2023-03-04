@@ -1,0 +1,76 @@
+********************************************************************************************************************************************************************
+                                                               Count Subarrays With Fixed Bounds
+********************************************************************************************************************************************************************
+
+LeetCode Link:- https://leetcode.com/problems/count-subarrays-with-fixed-bounds/description/
+
+
+You are given an integer array nums and two integers minK and maxK.
+
+A fixed-bound subarray of nums is a subarray that satisfies the following conditions:
+
+The minimum value in the subarray is equal to minK.
+The maximum value in the subarray is equal to maxK.
+Return the number of fixed-bound subarrays.
+
+A subarray is a contiguous part of an array.
+
+ 
+
+Example 1:
+
+Input: nums = [1,3,5,2,7,5], minK = 1, maxK = 5
+Output: 2
+Explanation: The fixed-bound subarrays are [1,3,5] and [1,3,5,2].
+Example 2:
+
+Input: nums = [1,1,1,1], minK = 1, maxK = 1
+Output: 10
+Explanation: Every subarray of nums is a fixed-bound subarray. There are 10 possible subarrays.
+ 
+
+Constraints:
+
+2 <= nums.length <= 105
+1 <= nums[i], minK, maxK <= 106
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+class Solution {
+    public long countSubarrays(int[] nums, int minK, int maxK) {
+        int n= nums.length;
+        long count= 0;   //stores count of total subarrays
+        int index= 0;    //will point to the end of the subarray
+        boolean minFound= false, maxFound= false;
+        int min= 0, max=0;   //will store the indexes of minK and maxK in subarray
+
+        for(int i=0; i<n; i++)
+        {
+            if(nums[i]<minK || nums[i]>maxK)    //subarray becomes incorrect
+            {
+                index= i+1;     //i+1 bcoz ith element cannot be part of subarray as it is either <minK or >maxK
+                minFound= false;
+                maxFound= false;
+            }
+            if(nums[i]==minK)
+            {
+                minFound= true;
+                min= i;     //storing index of minK element in array
+            }
+            if(nums[i]==maxK)
+            {
+                maxFound= true;
+                max= i;     //storing index of minK element in array
+            }
+            if(minFound && maxFound)
+            {
+                count+= Math.min(min,max)-index+1;      //count will be the min index of minK and maxK subtracted from index(which was pointing to the end of correct subarray)+1
+            }
+        }
+        return count;
+    }
+}
