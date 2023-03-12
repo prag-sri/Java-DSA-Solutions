@@ -1,0 +1,36 @@
+GFG Link:- https://practice.geeksforgeeks.org/contest/gfg-weekly-coding-contest-93/instructions/#
+
+
+//User function Template for Java
+
+class Solution{
+    public int workDone(int n, int a[], int cap){
+        if(n==0 || n==1)
+            return n;
+        int count=0;
+        int workDone=0;
+        HashMap<Integer,Integer> map= new HashMap<>();
+        Deque<Integer> dq= new LinkedList<>();
+        int i=0;
+        while(i<n)
+        {
+            if(count==cap && !map.containsKey(a[i]))
+            {
+                int num= dq.removeLast();
+                map.remove(num);
+                count--;
+                // System.out.println("remove ->"+num);
+            }
+            if(!map.containsKey(a[i]))
+            {
+                dq.addFirst(a[i]);
+                map.put(a[i],1);
+                // System.out.println("add ->"+a[i]);
+                count++;
+                workDone++;
+            }
+            i++;
+        }
+        return workDone;
+    }
+}
