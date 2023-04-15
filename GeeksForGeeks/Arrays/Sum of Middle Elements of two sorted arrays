@@ -1,0 +1,92 @@
+********************************************************************************************************************************************************************
+                                                               Sum of Middle Elements of two sorted arrays
+********************************************************************************************************************************************************************
+
+LeetCode Link:- https://practice.geeksforgeeks.org/problems/sum-of-middle-elements-of-two-sorted-arrays2305/1?page=2&company[]=Amazon&curated[]=1&sortBy=submissions
+
+
+Given 2 sorted arrays Ar1 and Ar2 of size N each. Merge the given arrays and find the sum of the two middle elements of the merged array.
+
+Example 1:
+
+Input:
+N = 5
+Ar1[] = {1, 2, 4, 6, 10}
+Ar2[] = {4, 5, 6, 9, 12}
+Output: 11
+Explanation: The merged array looks like
+{1,2,4,4,5,6,6,9,10,12}. Sum of middle
+elements is 11 (5 + 6).
+ 
+
+Example 2:
+
+Input:
+N = 5
+Ar1[] = {1, 12, 15, 26, 38}
+Ar2[] = {2, 13, 17, 30, 45}
+Output: 32
+Explanation: The merged array looks like
+{1, 2, 12, 13, 15, 17, 26, 30, 38, 45} 
+sum of middle elements is 32 (15 + 17).
+ 
+
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function findMidSum() which takes  ar1, ar2 and n as input parameters and returns the sum of middle elements. 
+
+
+Expected Time Complexity: O(log N)
+Expected Auxiliary Space: O(1)
+
+ 
+Constraints:
+1 <= N <= 103
+1 <= Ar1[i] <= 106
+1 <= Ar2[i] <= 106
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+// User function Template for Java
+
+class Solution {
+    int findMidSum(int[] ar1, int[] ar2, int n) {
+        int merge[]= new int[2*n];
+        int i=0, j=0;
+        int index=0;
+        while(i<n && j<n)
+        {
+            if(ar1[i]<=ar2[j])
+            {
+                merge[index]= ar1[i];
+                i++;
+                index++;
+            }
+            else
+            {
+                merge[index]= ar2[j];
+                j++;
+                index++;
+            }
+        }
+        while(i<n)
+        {
+            merge[index]= ar1[i];
+            i++;
+            index++;
+        }
+        while(j<n)
+        {
+            merge[index]= ar2[j];
+            j++;
+            index++;
+        }
+        // for(i=0; i<2*n; i++)
+        // {
+        //     System.out.print(merge[i]+" ");
+        // }
+        return merge[n-1]+merge[n];
+    }
+}
