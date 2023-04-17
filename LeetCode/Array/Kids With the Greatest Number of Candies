@@ -50,20 +50,27 @@ n == candies.length
 
 class Solution {
     public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
-        int n= candies.length;
-        int maxCandies= Integer.MIN_VALUE;
-        for(int i=0; i<n; i++)
-            maxCandies= Math.max(maxCandies,candies[i]);
-        
-        List<Boolean> result= new ArrayList<>();
+       //n -> length of array candies
+       int n= candies.length;
+
+       //finding out the maximum element in candies array
+       int maxElement= Integer.MIN_VALUE;
+       for(int i=0; i<n; i++)
+            maxElement= Math.max(maxElement,candies[i]);
+
+        //creating a list of boolean type
+        List<Boolean> ansList= new ArrayList<>();
+
+        //adding extraCandies to each element of candies array and comparing with maxElement- if equal to or greater then element of ansList becomes true otherwise false
         for(int i=0; i<n; i++)
         {
-            int totalCandies= candies[i]+extraCandies;
-            if(totalCandies>= maxCandies)
-                result.add(true);
+            if(candies[i]+extraCandies>=maxElement)
+                ansList.add(true);
             else
-                result.add(false);
+                ansList.add(false);
         }
-        return result;
+
+        //at the end, return the ansList
+        return ansList;
     }
 }
