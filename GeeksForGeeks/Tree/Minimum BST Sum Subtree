@@ -1,0 +1,142 @@
+********************************************************************************************************************************************************************
+                                                                      Minimum BST Sum Subtree
+********************************************************************************************************************************************************************
+
+GFG Link:- https://practice.geeksforgeeks.org/problems/d064cc0468a5c2bb7817ecd7c1bc59ce25e23613/1
+
+
+Given a binary tree and a target, find the length of minimum sub-tree with the given sum equal to target which is also a binary search tree.
+
+Example 1:
+
+Input:
+           13
+         /    \
+       5       23
+      / \      / \
+     N   17   N   N
+         /
+        16
+Target: 38
+Output: 3
+Explanation: 5,17,16 is the smallest subtree
+with length 3.
+ 
+
+Example 2:
+
+Input:
+             7
+           /   \
+          N    23
+             /   \
+            10    23
+           /  \   / \
+          N   17 N   N
+Target: 73
+Output: -1
+Explanation: No subtree is bst for the given target.
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function minSubtreeSumBST() which takes the tree root and target as input parameters which is a binary Tree and returns length of minimum subtree having sum equal to the target but which is binary search tree.
+
+Expected Time Complexity:O(N), where N is no. of nodes
+Expected Space Complexity:O(1) 
+
+Constraints:
+1 <= N <= 10^5
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+/*
+
+Definition for Binary Tree Node
+class Node
+{
+    int data;
+    Node left;
+    Node right;
+
+    Node(int data)
+    {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+*/
+
+class Solution {
+    //count -> calculates min length of subtree whose sum is equal to target
+    static int count;
+    public static int minSubtreeSumBST(int target, Node root) {
+        count= Integer.MAX_VALUE;
+        
+        //calculating no. of nodes and the sum of nodes from solution function
+        int arr[]= solution(target,root);
+        
+        //return count- if count is still max_value then returning -1
+        return count==Integer.MAX_VALUE?-1:count;
+    }
+    
+    public static int[] solution(int target, Node root)
+    {
+        //if root is null then returning array with 2 elements in array that are 0,0
+        //note:- here index 0 has count of nodes and index 1 has sum of nodes
+        if(root==null)
+            return new int[]{0,0};
+            
+        //sum of left nodes
+        int[] lsum= solution(target,root.left);
+        
+        //if sum of left nodes is equal to target then checking if the subtree is bst or not
+        if(lsum[1]==target)     //index 1 has sum
+        {
+            if(isBST(root.left, Integer.MIN_VALUE, Integer.MAX_VALUE))
+            {
+                count= Math.min(lsum[0],count);     //if BST then count will store min of the no. of nodes and count
+            }
+        }
+        
+        //sum of right nodes
+        int[] rsum= solution(target,root.right);
+        
+        //if sum of right nodes is equal to target then checking if the subtree is bst or not
+        if(rsum[1]==target)     
+        {
+            if(isBST(root.right, Integer.MIN_VALUE, Integer.MAX_VALUE))
+            {
+                count= Math.min(rsum[0],count);     
+            }
+        }
+        
+        //checking if sum of left and right nodes is equal to target
+        if(lsum[1]+rsum[1]+root.data==target)    
+        {
+            if(isBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE))
+            {
+                count= Math.min(lsum[0]+rsum[0]+1,count); 
+            }
+        }
+        
+        //return int array where 0 index has count of left+right+root nodes and index 1 has their sum
+        return new int[]{lsum[0]+rsum[0]+1,lsum[1]+rsum[1]+root.data};
+    }
+    
+    public static boolean isBST(Node root, int left, int right)
+    {
+        if(root==null)
+            return true;
+            
+        if(root.data<=left || root.data>=right)
+            return false;
+            
+        boolean l= isBST(root.left,left,root.data);
+        boolean r= isBST(root.right,root.data,right);
+        
+        return l && r;
+    }
+}
