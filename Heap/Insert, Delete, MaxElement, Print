@@ -1,0 +1,92 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+public class Main
+{
+	public static void main(String[] args) {
+		Heap test_heap= new Heap();
+		test_heap.insertHeap(10);
+		test_heap.insertHeap(32);
+		test_heap.insertHeap(19);
+		test_heap.insertHeap(51);
+		test_heap.insertHeap(12);
+		test_heap.insertHeap(11);
+		System.out.println(test_heap.maxHeapElement());
+		test_heap.print();
+		System.out.println();
+		test_heap.deleteHeap(1);
+		test_heap.print();
+	}
+}
+class Heap
+{
+    ArrayList<Integer> heap= new ArrayList<>();
+    int size;
+    Heap(){
+        this.size=0;
+    }
+    int parent(int index){
+        return (index-1)/2;
+    }
+    int left(int index){
+        return 2*index+1;
+    }
+    int right(int index){
+        return 2*index+2;
+    }
+    void swap(int index1, int index2){
+        int a= heap.get(index1);
+        heap.set(index1,heap.get(index2));
+        heap.set(index2,a);
+    }
+    void insertHeap(int element){
+        //adding element at last of list and then shifting it to its correct position
+        heap.add(element);
+        
+        //condition index!=0 as 0th index element will not have a parent coz its root
+        int index= size;
+        while(index!=0 && heap.get(index)>heap.get(parent(index)))        //if(ele<=parent)continue; else swap;
+        {
+            swap(index,parent(index));
+            index= parent(index);
+        }
+        size++;
+    }
+    void deleteHeap(int index){
+        //we have to delete element at index from heap
+        
+        //check if child exists for the index element or not- if not then it is a leaf node- we will shift each element of heap by 11
+        // if(left(index)<size)
+        // {
+        //     heap.remove(index);
+        //     return;
+        // }
+        
+        //Step1:- swap that index element with last element
+        swap(index,size-1);
+        
+        //Step2:- delete that last index element
+        heap.remove(size-1);
+        size--;
+        
+        //Step3:- Heapify by finding out children of index element and swap if index element is smaller than children
+        while(left(index)<size && heap.get(index)<heap.get(left(index)))
+        {
+            swap(index,left(index));
+            index= left(index);
+        }
+        while(right(index)<size && heap.get(index)<heap.get(right(index)))
+        {
+            swap(index,right(index));
+            index= right(index);
+        }
+    }
+    int maxHeapElement(){
+        if(size==0)
+            return -1;
+        return heap.get(0);
+    }
+    void print(){
+        for(int i=0; i<size; i++)
+            System.out.print(heap.get(i)+" ");
+    }
+}
