@@ -1,0 +1,53 @@
+********************************************************************************************************************************************************************
+                                                               Binary Tree Preorder Traversal
+********************************************************************************************************************************************************************
+
+InterviewBit Link:- https://www.interviewbit.com/problems/trailing-zeros-in-factorial/
+
+
+Problem Description
+ 
+Given an integer A, return the number of trailing zeroes in A!.
+Note: Your solution should be in logarithmic time complexity.
+
+Problem Constraints
+0 <= A <= 10000000
+
+Input Format
+First and only argumment is integer A.
+
+Output Format
+Return an integer, the answer to the problem.
+
+Example Input
+Input 1: A = 4
+Input 2: A = 5
+
+Example Output
+Output 1: 0
+Output 2: 1
+
+Example Explanation
+Explanation 1: 4! = 24
+Explanation 2: 5! = 120
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+
+public class Solution {
+    public int trailingZeroes(int A) {
+        // We can easily observe that the no. of 2s in a no. will either be equal to or more than 5- so we really just need to find no. of 5s and we are done
+        // Count of no. of 5s= floor(n/5)+ floor(n/25)+ ......
+        int noOfZeroes= 0;
+        int i=5;
+        while(i<=A)
+        {
+            noOfZeroes+= Math.floor(A/i);
+            i= i*5;
+        }
+        return noOfZeroes;
+    }
+}
